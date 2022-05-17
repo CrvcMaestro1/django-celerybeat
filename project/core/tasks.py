@@ -70,4 +70,6 @@ class BaseTaskWithRetry(celery.Task):
 
 @shared_task(bind=True, base=BaseTaskWithRetry)
 def task_process_notification(self):
-    raise Exception()
+    if not random.choice([0, 1]):
+        raise Exception()
+    requests.post('https://httpbin.org/delay/5')
